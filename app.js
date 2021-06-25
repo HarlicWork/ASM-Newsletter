@@ -2,23 +2,24 @@ const express = require("express");
 const bodyParser = require("body-parser");
 //const request = require("request");
 const https = require("https");
+const env = require("dovent").config();
 
 const app = express();
 const port = process.env.PORT;
 
-//var apiKey = "6dcc1b3504a71f8cc1d0c0094053b8ff-us6";
-var apiKey = "a22acf7aaa0f0639102a4eefe81e49c9-us6";
+var apiKey = process.env.API_KEY;
 
-//var id = "796d6cd9c6";
-var id = "8a2801574c";
+var id = process.env.API_ID;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended:true }));
 
+//GET
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/signup.html");
 })
 
+//POST: Signup page
 app.post("/", (req, res) => {
 
     const firstName = req.body.fName;
@@ -64,10 +65,12 @@ app.post("/", (req, res) => {
     request.end();
 })
 
+//POST: Failure redirect
 app.post("/failure", (req, res) => {
     res.redirect("/");
 })
 
+// SERVER LISTENER
 app.listen(port || 3000, () => {
     console.log("Server is running on http://localhost:3000");
 })
