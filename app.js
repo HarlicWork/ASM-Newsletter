@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 //const request = require("request");
 const https = require("https");
-const env = require("dovent").config();
+const env = require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT;
